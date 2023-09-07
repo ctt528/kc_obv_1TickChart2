@@ -1,0 +1,144 @@
+
+
+
+Inputs:			
+	Starttime( 1700 ),
+	Endtime( 2200 ),
+	Num(30);
+	
+Vars:
+	UpOrderarraySum(0),
+	DnOrderarraySum(0),
+	Counter(0),
+	
+	Oscillator(0),
+	volumesum(0),
+
+	OscillatorPercentChange(0),
+	double ZeroPrice(close),
+	OscillatorPrice(0),
+	ii(0),
+	ChangeinOBV(0),
+	double ChangeinPrice(0),
+	Slope(0),
+	zeroobv(0),
+	SlopeCount(0),
+	
+	Zeropricee(close),
+	Zeroobvv(0),
+	Tickcount(0),
+	Oscillatorr(0),
+	slopeA(0); 
+	
+	
+	
+	Once
+	Begin
+	Clearprintlog;
+	End;
+
+
+If boxtime(starttime, endtime) then
+Begin
+	Counter = Counter + 1;
+	
+	volumesum = Volumesum + (Downticks + upticks);
+	
+	If downticks = 0 then Oscillator = Oscillator + upticks else Oscillator = Oscillator - downticks;
+	Plot1(Oscillator); 
+	 
+	Oscillatorr = (Close - zeropricee) / .005;
+	print(oscillatorr);//Learn how much oscillator moves compared to ticks
+
+	{	What's price at 0?
+					 At 10?
+					 At -10?....	
+		Instead I am doing it by time. Based on how far from 0 (starttime). }
+	//If time = 1701 then begin
+						 
+{	
+	If time = Starttime then ZeroPrice = last;
+	If Time > Starttime and zeroprice = 0 then Zeroprice = last; 
+
+	//AT EVERY 30(Num) BAR, THERE IS A NEW SLOPE(HOW MUCH VOLUME IT TAKES TO MOVE THE MARKET 1 TICK.
+//Every 30 bars measure the difference
+	If (counter/Num) = 1 or (counter/Num) = 2 or (counter/Num) = 3 or (counter/Num) = 4 or (counter/Num) = 5 or (counter/Num) = 6 or (counter/Num) = 7 or 
+	(counter/Num) = 8 or (counter/Num) = 9 or (counter/Num) = 10 or (counter/Num) = 11 or (counter/Num) = 12 or (counter/Num) = 13 or (counter/Num) = 14 or (counter/Num) = 15 or 	
+	(counter/Num) = 16 or (counter/Num) = 17 or (counter/Num) = 18 or (counter/Num) = 19 or (counter/Num) = 20 or (counter/Num) = 21 or (counter/Num) = 22 or (counter/Num) = 23 or 
+	(counter/Num) = 24 or (counter/Num) = 25 or (counter/Num) = 26 or (counter/Num) = 27 or (counter/Num) = 28 or (counter/Num) = 29 or (counter/Num) = 30 or (counter/Num) = 31 or (counter/Num) = 32 or 
+	(counter/Num) = 33 or (counter/Num) = 34 or (counter/Num) = 35 or (counter/Num) = 36 or (counter/Num) = 37 or (counter/Num) = 38 or (counter/Num) = 39 or (counter/Num) = 40 or (counter/Num) = 41 or 
+	(counter/Num) = 42 or (counter/Num) = 43 or (counter/Num) = 44 or (counter/Num) = 45 or (counter/Num) = 46 or (counter/Num) = 47 or (counter/Num) = 48 or (counter/Num) = 49 or (counter/Num) = 50 or 
+	(counter/Num) = 51 or (counter/Num) = 52 or (counter/Num) = 53 or (counter/Num) = 54 or (counter/Num) = 55 or (counter/Num) = 56 or (counter/Num) = 57 or (counter/Num) = 58 or (counter/Num) = 59 or 
+	(counter/Num) = 60 or (counter/Num) = 61 or (counter/Num) = 62 or (counter/Num) = 63 or (counter/Num) = 64 or (counter/Num) = 65 or (counter/Num) = 66 or (counter/Num) = 67 or (counter/Num) = 68 or 
+	(counter/Num) = 69 or (counter/Num) = 70 or (counter/Num) = 71 or (counter/Num) = 72 or (counter/Num) = 73 or (counter/Num) = 74 or (counter/Num) = 75 or (counter/Num) = 76 or (counter/Num) = 77 or 
+	(counter/Num) = 78 or (counter/Num) = 79 or (counter/Num) = 80 or (counter/Num) = 81 or (counter/Num) = 82 or (counter/Num) = 83 or (counter/Num) = 84 or (counter/Num) = 85 or (counter/Num) = 86 or 
+	(counter/Num) = 87 or (counter/Num) = 88 or (counter/Num) = 89 or (counter/Num) = 90 or (counter/Num) = 91 or (counter/Num) = 92 or (counter/Num) = 93 or (counter/Num) = 94 or (counter/Num) = 95 or 
+	(counter/Num) = 96 or (counter/Num) = 97 or (counter/Num) = 98 or (counter/Num) = 99 or (counter/Num) = 100 or (counter/Num) = 101 or (counter/Num) = 102 or (counter/Num) = 103 or (counter/Num) = 104 or
+	(counter/Num) = 105 or (counter/Num) = 106 or (counter/Num) = 107 or (counter/Num) = 108 or (counter/Num) = 109 or (counter/Num) = 110 or (counter/Num) = 111 or (counter/Num) = 112 or (counter/Num) = 113 or 
+	(counter/Num) = 114 or (counter/Num) = 115 or (counter/Num) = 116 or (counter/Num) = 117 or (counter/Num) = 118 or (counter/Num) = 119 or (counter/Num) = 120 or (counter/Num) = 121 or 
+	(counter/Num) = 122 or (counter/Num) = 123 or (counter/Num) = 124 or (counter/Num) = 125 or (counter/Num) = 126 or (counter/Num) = 127 or (counter/Num) = 128 or (counter/Num) = 129 or 
+	(counter/Num) = 130 or (counter/Num) = 131 or (counter/Num) = 132 or (counter/Num) = 133 or (counter/Num) = 134 or (counter/Num) = 135 or (counter/Num) = 136 or (counter/Num) = 137 or 
+	(counter/Num) = 138 or (counter/Num) = 139 or (counter/Num) = 140 or (counter/Num) = 141 or (counter/Num) = 142 or (counter/Num) = 143 or (counter/Num) = 144 or (counter/Num) = 145 or 
+	(counter/Num) = 146 or (counter/Num) = 147 or (counter/Num) = 148 or (counter/Num) = 149 or (counter/Num) = 150 or (counter/Num) = 151 or (counter/Num) = 152 or (counter/Num) = 153 or
+	(counter/Num) = 154 or (counter/Num) = 155 or (counter/Num) = 156 or (counter/Num) = 157 or (counter/Num) = 158 or (counter/Num) = 159 or (counter/Num) = 160 or (counter/Num) = 161 or 
+	(counter/Num) = 162 or (counter/Num) = 163 or (counter/Num) = 164 or (counter/Num) = 165 or (counter/Num) = 166 or (counter/Num) = 167 or (counter/Num) = 168 or (counter/Num) = 169 or (counter/Num) = 170
+	Then 
+	Begin
+	//Measure last from zeroprice.  Measure oscillator from 0.
+	ChangeinPrice = absvalue(close - Zeroprice);
+	ChangeinPrice = ChangeinPrice / .005; //gives us how many ticks	
+	ZeroPrice = close;
+	ChangeinOBV = Absvalue(zeroobv - oscillator); //After 1 time thru, the oscillator becomes the 0 point to base it off of nxt time around.  
+	Zeroobv = Oscillator;
+	
+	//obv per tick.  (how much volume moves off center, and inturn,  how many ticks does the volume move.) In other words it's how much volume does it take to move price 1 tick?
+	Slope = iff((Changeinprice <> 0), ChangeinOBV / ChangeinPrice, 1); //example: Volume count the longs are winning by 6, price moved up 1. 
+
+	Print(slope:0:4, time);	
+		//AT EVERY 30 BAR, THERE IS A NEW SLOPE(HOW MUCH VOLUME IT TAKES TO MOVE THE MARKET 1 TICK.
+	End;
+End;
+
+	If time >= Endtime then
+	Begin
+		Counter = 0;
+		DnOrderarraySum = 0;
+		UpOrderarraySum = 0;
+		Oscillator = 0;
+		volumesum = 0;
+		OscillatorPercentChange = 0;
+		Zeroprice = 0;
+		zeroobv = 0;
+	End;
+plot2(0);	}
+
+
+{	Instead of refreshing the slope every 30[num] bars... We refresh every time the oscillator moves 10[make it an input]. 
+		Initially: We take the zeroprice and zeroobv.
+		Next step: We wait and hold those values until the oscillator becomes +10 or -10.
+				A:	At that point, we take the difference between the new oscillator value and the zeroobv.
+				B:	We do the same for price. We take the difference between the close now and the zeroprice.
+		Next Step: We compute the slope by dividing  A/B.   Finds us how much volume has to be off-balance to move price 1 tick. 
+		Next Step: Reset by making zeroprice = Close now. 
+								   zeroobv = Current oscillator.
+					So next time around, zeroprice is not from the starting point. it's from a new starting point. So if slope gets crazy skewed, we're not multiplying that.
+					
+		Extra Step: Compute the slope from the starting point in Realtime. 
+					Difference between LegitZeroprice(doesnot change) and the current price.
+					Difference between 0 and Oscillator
+					Computerdatetime slope and do it on every bar.
+					}
+
+For ii = 0 to 500
+Begin
+	If oscillator = ii then slopeA = oscillator/oscillatorr;
+	ii = ii + 10;
+End;
+
+	
+	
+	
+	
+
+
+end; 
